@@ -12,7 +12,8 @@ function App() {
     index,
     correct,
     nextQuestions,
-    checkAnswers
+    checkAnswers,
+    color
   } = useGlobalContext();
 
   if(waiting) {
@@ -47,8 +48,8 @@ function App() {
         <article className='container'>
           <h2 dangerouslySetInnerHTML={{__html: question}} />
           <div className='btn-container'>
-            {answers.map((answer, index) => {
-              return <button key={index} className="answer-btn" onClick={() => checkAnswers(correct_answer === answer)} dangerouslySetInnerHTML={{__html: answer}} />
+            {answers.map((answer, index1) => {
+              return <button key={index1} className="answer-btn" style={{backgroundColor: correct_answer === answer && color}} onClick={() => checkAnswers(correct_answer === answer)} dangerouslySetInnerHTML={{__html: answer}} />
             })}
           </div>
         </article>

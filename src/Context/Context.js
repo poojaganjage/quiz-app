@@ -20,6 +20,7 @@ function AppProvider({children}) {
         difficulty: "easy"
     }); //quiz
     const [modal, setModal] = useState(false); //modal
+    const [color, setColor] = useState(''); //color
     
     // fetchQuestions
     const fetchQuestions = async(url) => {
@@ -66,13 +67,17 @@ function AppProvider({children}) {
                 return index;
             }
         });
+        setColor("");
     }
 
     const checkAnswers = (value) => {
         if(value) {
+            setColor('green');
             setCorrect((oldState) => {
                 return oldState + 1;
             });
+        } else {
+            setColor('red');
         }
         //nextQuestions();
     }
@@ -92,7 +97,7 @@ function AppProvider({children}) {
 
     return (
         <AppContext.Provider value={{
-            waiting, loading, questions, index, correct, error, quiz, modal, closeModal, nextQuestions, checkAnswers, handleChange, handleSubmit
+           waiting, loading, questions, index, correct, error, quiz, modal, closeModal, nextQuestions, checkAnswers, handleChange, handleSubmit, color 
         }}>
             {children}
         </AppContext.Provider>
