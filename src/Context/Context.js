@@ -21,6 +21,8 @@ function AppProvider({children}) {
     }); //quiz
     const [modal, setModal] = useState(false); //modal
     const [color, setColor] = useState(''); //color
+    const [buttonindex, setButtonIndex] = useState(0); //buttonindex
+    console.log(buttonindex);
     
     // fetchQuestions
     const fetchQuestions = async(url) => {
@@ -70,14 +72,14 @@ function AppProvider({children}) {
         setColor("");
     }
 
-    const checkAnswers = (value) => {
+    const checkAnswers = (value, e) => {
+        console.log(e.target.getAttribute("data-index"));
         if(value) {
-            setColor('green');
             setCorrect((oldState) => {
                 return oldState + 1;
             });
-        } else {
-            setColor('red');
+            setColor('green');
+            setButtonIndex(e.target.getAttribute("data-index"));
         }
         //nextQuestions();
     }
@@ -97,7 +99,7 @@ function AppProvider({children}) {
 
     return (
         <AppContext.Provider value={{
-           waiting, loading, questions, index, correct, error, quiz, modal, closeModal, nextQuestions, checkAnswers, handleChange, handleSubmit, color 
+           waiting, loading, questions, index, correct, error, quiz, modal, closeModal, nextQuestions, checkAnswers, handleChange, handleSubmit, color, buttonindex
         }}>
             {children}
         </AppContext.Provider>

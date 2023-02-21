@@ -13,7 +13,8 @@ function App() {
     correct,
     nextQuestions,
     checkAnswers,
-    color
+    color,
+    buttonindex
   } = useGlobalContext();
 
   if(waiting) {
@@ -39,7 +40,7 @@ function App() {
     console.log(answers[tempIndex]);
     console.log(answers);
   }
-
+  
   return (
     <main>
       <Modal />
@@ -48,9 +49,13 @@ function App() {
         <article className='container'>
           <h2 dangerouslySetInnerHTML={{__html: question}} />
           <div className='btn-container'>
-            {answers.map((answer, index1) => {
-              return <button key={index1} className="answer-btn" style={{backgroundColor: correct_answer === answer && color}} onClick={() => checkAnswers(correct_answer === answer)} dangerouslySetInnerHTML={{__html: answer}} />
-            })}
+            {
+              answers.map((answer, index1) => {
+                // console.log(index1);
+                // console.log(buttonindex);
+                return <button key={index1} data-index={index1} className="answer-btn" style={{backgroundColor: (() => {if(correct_answer === answer) {return color}})()}} onClick={(e) => checkAnswers(correct_answer === answer, e)} dangerouslySetInnerHTML={{__html: answer}} />
+              })
+            }
           </div>
         </article>
         <button className='next-question' onClick={nextQuestions}>Next Questions</button>
